@@ -15,7 +15,10 @@ namespace KeywordAnalyzer
 			List<Word> eksamen2011 = textParser("eksamen2011.txt", linking_words);
 			List<Word> eksamen2012 = textParser("eksamen2012.txt", linking_words);
 			//List<Word> eksamen2011 = textParser("eksamen2011.txt", linking_words);
-			compare(eksamen2011, eksamen2012);
+			List<List<Word>> listList = new List<List<Word>>();
+			listList.Add(eksamen2011);
+			listList.Add(eksamen2012);
+			compare(listList, "report.txt");
 		}
 		public static List<string> linkingWords(string path)
 		{
@@ -27,6 +30,7 @@ namespace KeywordAnalyzer
 				linkWords.Add(line);
 				//Console.WriteLine(line);
 			}
+			file.Close();
 			return linkWords;
 		}
 		
@@ -63,15 +67,41 @@ namespace KeywordAnalyzer
 			}
 			foreach (Word w in lWord){
 				//Console.WriteLine("{0} funnet {1} ganger", w.name, w.counter);
-				Console.WriteLine("{0} - {1}", w.name, w.counter);
+				Console.WriteLine("{0}\t{1}", w.name, w.counter);
 				//Console.WriteLine("Context: '{0}'", w.context);
 			}
+			file.Close();
 			return lWord;
+		}
+		
+		public static void compare(List<List<Word>> listList, string outputFilename)
+		{
+			List<Word> wordCollection = new List<Word>();
+			StreamWriter writer = new StreamWriter(outputFilename);
+			int nofList = listList.Count;
+			foreach (List<Word> wordList in listList)
+			{
+				foreach (Word newWord in wordList)
+				{
+					var res = wordCollection.Find(word => word.name == newWord.name);
+					if (res == null)
+					{
+						wordCollection.Add(newWord);
+					} else {
+						res.counter++;
+					}
+				}
+			}
+			foreach (Word word in wordCollection)
+			{
+				writer.WriteLine("{0}\t{1}\t{2}", word.name, word.counter, word.context);
+			}
+			writer.Close();
 		}
 		
 		public static string sanitizeString (string str )
 		{
-			List<string> patterns = new List<string>() {"\\p{Sc}", "\\%", "\\.", "\\,", "\\?", "\\(", "\\)", "\\d+"};
+			List<string> patterns = new List<string>() {"\\p{Sc}", "\\%", "\\.", "\\,", "\\?", "\\(", "\\)", "\\d+", "\\:", "\\;"};
 			foreach (string pattern in patterns)
 			{
 				Regex rgx = new Regex(pattern);
@@ -107,6 +137,7 @@ namespace KeywordAnalyzer
 			{
 				writer.WriteLine(word);
 			}
+			writer.Close();
 		}
 		
 	}
