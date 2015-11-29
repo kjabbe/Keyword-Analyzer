@@ -424,3 +424,6 @@ do
 why
 when
 your
+are
+was
+were
