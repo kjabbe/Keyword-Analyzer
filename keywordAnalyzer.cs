@@ -48,4 +48,10 @@ namespace KeywordAnalyzer
 		}
 		
 	}
+	
+	public class Words 
+	{
+		public string word { get; set; }
+		public int counter { get; set; }	
+	}
 }
