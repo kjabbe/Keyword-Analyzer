@@ -9,24 +9,25 @@ namespace KeywordAnalyzer
 		public static void Main()
 		{
 			//string link_word_file = @"linkwords_english.txt";
-			//List<string> linking_words = linkingWords(linkWordFile);
-			createLinkwordList("words.txt", "linkwords_english.txt");
+			//List<string> linking_words = linkingWords(link_word_file);
+			//createLinkwordList("words.txt", "linkwords_english.txt");
 		}
-		/*public static List<string> linkingWords(string path)
+		public static List<string> linkingWords(string path)
 		{
 			List<string> linkWords = new List<string>();
-			StreamReader file = new StreamReader(@"" + path);
+			StreamReader file = new StreamReader(path);
+			string line;
 			while((line = file.ReadLine()) != null)
 			{
 				linkWords.Add(line);
 			}
 			return linkWords;
-		}*/
+		}
 		
 		public static void createLinkwordList(string path, string outputFilename)
 		{
 			List<string> linkWords = new List<string>();
-			StreamReader file = new StreamReader(@"" + path);
+			StreamReader file = new StreamReader(path);
 			string line;
 			while((line = file.ReadLine()) != null)
 			{
