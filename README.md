@@ -1,4 +1,4 @@
-# Keyword-Analyzer
+# Keyword-Analyzer written in C# using the MONO project.
 
 Work in progress
 
